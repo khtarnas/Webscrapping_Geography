@@ -11,10 +11,17 @@ PennKey: khtarnas
 possible in java (why no tuples of abstract types??) and handles the joint sorting of the two lists that is used in
 three different questions
 
+- Overall, once I got the hang of some of the funky parts of JSoup, this was a pretty smooth assignment. The main
+parts that I had difficulty with were when there were inconsistencies between pages (something like the html was
+slightly different between guam and angola or a certain part of a page just doesn't exist for a specific country).
+In these cases, I tried to handle them as well as I could, but that often meant just ignoring cases that were funky.
+There are definitely also inputs that the user could give (meaning nonsensical ones) that I tried to handle, but at
+times they will just pass through.
+
 ************************************* Assumptions *************************************
 
 - Over time, even as information gets updated, the names of div classes, etc. will not be changed
-- If a color is in the flag description, it is in the flag. 
+- If a color is in the flag description, it is in the flag.
 - For question 6, the assumption is that the Carribean is a "region" which I'm defining as just a looser version of
  a continent (so 'Central America' and 'Middle East', etc. would work as well).
 

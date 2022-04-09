@@ -26,7 +26,6 @@ public class Questions {
         // connect to the given link and get the document as a global var
         try {
             this.currentDoc = Jsoup.connect(this.url).get();
-            // System.out.println(this.currentDoc);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,16 +65,12 @@ public class Questions {
                     Matcher m = r.matcher(e.toString());
 
                     if (m.find()) {
-                        System.out.println(countryNames.get(i));
-                        System.out.println(m.group(1));
 
                         // if color 1 was found then
                         // check if the description contains the word entered for color 2
                         r = Pattern.compile(".*?(" + color2 + ")");
                         m = r.matcher(e.toString());
                         if (m.find()) {
-                            System.out.println(m.group(1));
-
                             // If both colors exist then add to list
                             countriesWithColors.add(countryNames.get(i));
                         }
@@ -175,8 +170,6 @@ public class Questions {
                         if (Integer.parseInt(m.group(1)) < elecProduction) {
                             elecProduction = Integer.parseInt(m.group(1));
                             largestCountry = countryNames.get(i);
-                            System.out.println(elecProduction);
-                            System.out.println(largestCountry);
                         }
 
                     }
@@ -327,7 +320,6 @@ public class Questions {
             }
         }
 
-        System.out.println(highestCountry);
         return population;
     }
 
@@ -418,20 +410,8 @@ public class Questions {
             }
         }
 
-        for (int i = 0; i < regionCountries.size(); i++) {
-            System.out.println(regionCountries.get(i));
-            System.out.println(countryAreas.get(i));
-            System.out.println(importPartners.get(i));
-        }
-
         nameAndNumberLists tempCombo = new nameAndNumberLists(importPartners, countryAreas);
         tempCombo.sort();
-
-        for (int i = 0; i < regionCountries.size(); i++) {
-            System.out.println(regionCountries.get(i));
-            System.out.println(tempCombo.getNumbers().get(i));
-            System.out.println(tempCombo.getNames().get(i));
-        }
 
         return tempCombo.getNames().get(tempCombo.getNames().size() - 3);
     }
@@ -527,8 +507,6 @@ public class Questions {
                     Pattern r = Pattern.compile(".*?(" + color + ")");
                     Matcher m = r.matcher(e.toString());
 
-                    System.out.println("color check: " + countryNames.get(i));
-
                     if (m.find()) {
                         if (m.groupCount() > 0) {
 
@@ -536,8 +514,6 @@ public class Questions {
                             Elements internetDIV = countryDoc.select("h3:matches(Internet users)");
 
                             for (Element a : internetDIV) {
-
-                                System.out.println("internet check: " + countryNames.get(i));
 
                                 // Information in next sibling
                                 a = a.nextElementSibling();
