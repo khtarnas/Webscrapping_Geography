@@ -17,7 +17,8 @@ public class Questions {
     /**
      *  Constructor
      *
-     * @param url
+     * @param url the starting point url
+     * @param rootURL the url that all other urls will branch off from (base url)
      */
     public Questions(String rootURL, String url) {
         this.rootURL = rootURL;
@@ -33,9 +34,10 @@ public class Questions {
 
     /**
      * A method that answers question ONE given the two specified colors.
-     * @param color1
-     * @param color2
-     * @return
+     *
+     * @param color1 the first given color
+     * @param color2 the second given color
+     * @return An arraylist of all the countries with the two given colors in the flag
      */
     public ArrayList<String> questionOne(String color1, String color2) {
         color1 = color1.toLowerCase();
@@ -76,9 +78,7 @@ public class Questions {
                         }
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -89,8 +89,9 @@ public class Questions {
 
     /**
      * A method that answers question TWO given an ocean
-     * @param ocean
-     * @return
+     *
+     * @param ocean the name of an ocean
+     * @return The lowest point in the given ocean
      */
     public String questionTwo(String ocean) {
         // get all the relevant hrefs
@@ -134,8 +135,9 @@ public class Questions {
 
     /**
      * A method that answers question THREE given a continent
-     * @param continent
-     * @return
+     *
+     * @param continent the name of a continent
+     * @return largest country in terms of Electricity Production in the given continent
      */
     public String questionThree(String continent) {
         ArrayList<ArrayList<String>> temp = getCountryLinksInContinent(continent);
@@ -160,23 +162,24 @@ public class Questions {
                 for (Element e : countryDIV) {
 
                     // find the important information relative to the given tag
-                    e = e.parent().nextElementSibling().nextElementSibling();
+                    if (e.parent() != null) {
+                        e = e.parent().nextElementSibling().nextElementSibling();
 
-                    // Get the numbered position
-                    Pattern r = Pattern.compile("country comparison to the world.*?((?:[0-9]|,)+)");
-                    Matcher m = r.matcher(e.toString());
 
-                    if (m.find()) {
-                        if (Integer.parseInt(m.group(1)) < elecProduction) {
-                            elecProduction = Integer.parseInt(m.group(1));
-                            largestCountry = countryNames.get(i);
+                        // Get the numbered position
+                        Pattern r = Pattern.compile("country comparison to the world.*?((?:[0-9]|,)+)");
+                        Matcher m = r.matcher(e.toString());
+
+                        if (m.find()) {
+                            if (Integer.parseInt(m.group(1)) < elecProduction) {
+                                elecProduction = Integer.parseInt(m.group(1));
+                                largestCountry = countryNames.get(i);
+                            }
+
                         }
-
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -187,8 +190,9 @@ public class Questions {
 
     /**
      * A method that answers question FOUR given a continent
-     * @param continent
-     * @return
+     *
+     * @param continent the name of a continent
+     * @return country with the largest coastline to land area ratio in given continent
      */
     public String questionFour(String continent) {
         ArrayList<ArrayList<String>> temp = getCountryLinksInContinent(continent);
@@ -245,9 +249,7 @@ public class Questions {
                         }
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -257,8 +259,8 @@ public class Questions {
 
     /**
      * A method that answers question FIVE given a continent
-     * @param continent
-     * @return
+     * @param continent the name of a continent
+     * @return the population of the country in the given continent with the highest mean elevation
      */
     public int questionFive(String continent) {
         ArrayList<ArrayList<String>> temp = getCountryLinksInContinent(continent);
@@ -313,9 +315,7 @@ public class Questions {
                         }
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -325,8 +325,9 @@ public class Questions {
 
     /**
      * A method that answers question SIX given a region
-     * @param region
-     * @return
+     *
+     * @param region the name of a region of the world
+     * @return the Imports Partners for the third-largest island (by total area) in the given region
      */
     public String questionSix(String region) {
 
@@ -403,9 +404,7 @@ public class Questions {
 
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -418,8 +417,9 @@ public class Questions {
 
     /**
      * A method that answers question SEVEN given a letter
-     * @param letter
-     * @return
+     *
+     * @param letter an alphabetical english letter
+     * @return An ordered list (by total area, smallest to largest) of the countries starting with the given letter
      */
     public ArrayList<String> questionSeven(String letter) {
         ArrayList<ArrayList<String>> temp = getAllCountryLinks();
@@ -459,9 +459,7 @@ public class Questions {
                         areas.add(Integer.parseInt(area));
                     }
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+            } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -475,9 +473,10 @@ public class Questions {
 
     /**
      * A method that answers question Eight given a letter
-     * @param continent
-     * @param color
-     * @return
+     *
+     * @param continent the name of a continent
+     * @param color a color
+     * @return The country with the most internet users in the given continent with the given color in their flag
      */
     public String questionEight(String continent, String color) {
         color = color.toLowerCase();
@@ -531,9 +530,7 @@ public class Questions {
                         }
                     }
                 }
-             } catch (IOException e) {
-                e.printStackTrace();
-            } catch (InterruptedException e) {
+             } catch (IOException | InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -550,21 +547,11 @@ public class Questions {
 
 
     /**
-     ******************************************************************************************************************
-     * Helper Functions below here:
-     */
-
-
-
-
-
-
-    /**
      *
      * Returns TWO array lists (first with names, second with links) in an arraylist of length 2
      *
-     * @param continent
-     * @return
+     * @param continent the name of a continent
+     * @return two array lists
      */
     private ArrayList<ArrayList<String>> getCountryLinksInContinent(String continent) {
         // get the relevant href
@@ -617,7 +604,7 @@ public class Questions {
      * Returns TWO array lists (first with names, second with links) in an arraylist of length 2
      * of ALL countries.
      *
-     * @return
+     * @return two array lists of all names and of all links of all countries in the world
      */
     private ArrayList<ArrayList<String>> getAllCountryLinks() {
         // get all the relevant hrefs
