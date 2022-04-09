@@ -24,7 +24,7 @@ public class Main {
                 "for the third largest island (by total area) in the Caribbean? \n" +
                 "7. Provide a list of all countries starting with the letter “D”, sorted by total area, smallest" +
                 " to largest. \n" +
-                "8. Wild card – come up with an interesting question. List the question and find the answer to it.\n");
+                "8. What country in East and Southeast Asia with the color green in their flag has the most internet users?\n");
 
         System.out.println("Which question would you like answered? (enter a number): ");
         int n = Integer.parseInt(reader.nextLine());

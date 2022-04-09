@@ -98,8 +98,30 @@ Sri Lanka
 
 QUESTION 2:
 
+-8,605 m
+
 QUESTION 3:
 
 South Africa
 
 QUESTION 4:
+
+Monaco
+
+QUESTION 5:
+
+18430408
+
+QUESTION 6:
+
+United States 39%, China 22%, Turkey 5% (2019)
+
+QUESTION 7;
+
+Dhekelia
+Dominica
+Djibouti
+Denmark
+Dominican Republic
+
+QUESTION 8:

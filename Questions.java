@@ -39,6 +39,8 @@ public class Questions {
      * @return
      */
     public ArrayList<String> questionOne(String color1, String color2) {
+        color1 = color1.toLowerCase();
+        color2 = color2.toLowerCase();
 
         ArrayList<ArrayList<String>> temp = getAllCountryLinks();
         ArrayList<String> countryLinks = temp.get(1);
@@ -498,16 +500,19 @@ public class Questions {
      * @return
      */
     public String questionEight(String continent, String color) {
+        color = color.toLowerCase();
+
         ArrayList<ArrayList<String>> temp = getCountryLinksInContinent(continent);
         ArrayList<String> countryLinks = temp.get(1);
         ArrayList<String> countryNames = temp.get(0);
 
         /*
          * Iterate through all countries to check their flag color
+         * and get their internet users
          *
          */
         ArrayList<String> countriesWithColor = new ArrayList<>();
-        ArrayList<String> countryLinksWithColor = new ArrayList<>();
+        ArrayList<Integer> numInternetUsers = new ArrayList<>();
         for (int i = 0; i < countryLinks.size(); i++) {
             Document countryDoc;
             try {
@@ -522,9 +527,32 @@ public class Questions {
                     Pattern r = Pattern.compile(".*?(" + color + ")");
                     Matcher m = r.matcher(e.toString());
 
+                    System.out.println("color check: " + countryNames.get(i));
+
                     if (m.find()) {
-                        countriesWithColor.add(countryNames.get(i));
-                        countryLinksWithColor.add(countryLinks.get((i)));
+                        if (m.groupCount() > 0) {
+
+                            // Get the tag of where we are supposed to be
+                            Elements internetDIV = countryDoc.select("h3:matches(Internet users)");
+
+                            for (Element a : internetDIV) {
+
+                                System.out.println("internet check: " + countryNames.get(i));
+
+                                // Information in next sibling
+                                a = a.nextElementSibling();
+
+                                // Get the area
+                                r = Pattern.compile("total.*?((?:[0-9]|\\.|,)+)");
+                                m = r.matcher(a.toString());
+
+                                if (m.find()) {
+                                    String users = m.group(1).replaceAll("(,|\\.)", "");
+                                    numInternetUsers.add(Integer.parseInt(users));
+                                    countriesWithColor.add(countryNames.get(i));
+                                }
+                            }
+                        }
                     }
                 }
              } catch (IOException e) {
@@ -534,7 +562,10 @@ public class Questions {
             }
         }
 
-        return "";
+        nameAndNumberLists tempAssoc = new nameAndNumberLists(countriesWithColor, numInternetUsers);
+        tempAssoc.sort();
+
+        return tempAssoc.getNames().get(tempAssoc.getNames().size() - 1);
     }
 
 
