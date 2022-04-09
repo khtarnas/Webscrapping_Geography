@@ -10,8 +10,24 @@ public class Main {
         Questions q = new Questions(rootURL, url);
         Scanner reader = new Scanner(System.in);
 
+        System.out.println("There are the following 8 questions that can be answered:\n");
+
+        System.out.println("1. List all countries with flags containing both red and green colors. \n" +
+                "2. What is the lowest point in the Atlantic Ocean? \n" +
+                "3. Find the largest country in Africa in terms of Electricity Production. \n" +
+                "4. Norway  is  notoriously  known  for  having  the  largest  coastline  in  Europe  despite  its" +
+                "  small  land " +
+                "area. Which country in Europe has the largest coastline to land area ratio? \n" +
+                "5. What is the population of the country in South America with the highest mean elevation? \n" +
+                "6. Many  islands  rely  on  imports  from  larger  countries.  Which  countries  are  the  Imports" +
+                "  Partners " +
+                "for the third largest island (by total area) in the Caribbean? \n" +
+                "7. Provide a list of all countries starting with the letter “D”, sorted by total area, smallest" +
+                " to largest. \n" +
+                "8. Wild card – come up with an interesting question. List the question and find the answer to it.\n");
+
         System.out.println("Which question would you like answered? (enter a number): ");
-        int n = reader.nextInt(); // Scans the next token of the input as an int.
+        int n = Integer.parseInt(reader.nextLine());
 
         // Question 1 specifics:
         if (n == 1) {
@@ -19,10 +35,10 @@ public class Main {
                     " ____ colors.");
 
             System.out.println("Enter the first color you would like to search for:");
-            String colorOne = reader.next();
+            String colorOne = reader.nextLine();
 
             System.out.println("Enter the second color you would like to search for:");
-            String colorTwo = reader.next();
+            String colorTwo = reader.nextLine();
 
             ArrayList<String> temp = q.questionOne(colorOne, colorTwo);
 
@@ -37,7 +53,7 @@ public class Main {
             System.out.println("You chose the question: What is the lowest point in the ______ Ocean?");
 
             System.out.println("Enter the ocean you would like to search for:");
-            String ocean = reader.next();
+            String ocean = reader.nextLine();
 
             System.out.println("The lowest point of the " + ocean + " ocean is: -" + q.questionTwo(ocean));
 
@@ -46,7 +62,7 @@ public class Main {
                     " Production.");
 
             System.out.println("Enter the continent you would like to search for:");
-            String continent = reader.next();
+            String continent = reader.nextLine();
 
             System.out.println("The largest country in " + continent + " in terms of Electricity production is: " +
                     q.questionThree(continent));
@@ -57,48 +73,60 @@ public class Main {
                     "area. Which country in _______ has the largest coastline to land area ratio?");
 
             System.out.println("Enter the continent you would like to search for:");
-            String continent = reader.next();
+            String continent = reader.nextLine();
 
-            q.questionFour(continent);
+            System.out.println("The country in " + continent + " with the largest coastline to land area ratio is " + q.questionFour(continent));
 
         } else if (n == 5) {
-            System.out.println("You chose the question: What is the population of the country in South America with" +
+            System.out.println("You chose the question: What is the population of the country in ______ with" +
                     " the highest mean elevation?");
 
             System.out.println("Enter the continent you would like to search for:");
-            String colorOne = reader.next();
+            String continent = reader.nextLine();
 
-            // go to south america page
-            // for each country, get the country name, the mean elevation and population (both listed on country page) -- onyl save the largest, replace if find larger (by pop)
+            System.out.println("The population of the country with the highest mean elevation in " + continent +
+                    " is: " + q.questionFive(continent));
 
         } else if (n == 6) {
             System.out.println("You chose the question: Many  islands  rely  on  imports  from  larger  countries." +
                     " Which  countries  are  the  Imports Partners for the third largest *country* (by total area)" +
                     " in the _______?");
 
-            System.out.println("Enter the region you would like to search for (e.g. Carribean):");
-            String colorOne = reader.next();
+            System.out.println("Enter the region you would like to search for (e.g. Caribbean, Southern Africa, etc.):");
 
-            // go through all countries, if it says under location "carribean" then save in list (also their link and also their size)
-            // go through all saved links and check third largest for import partners
+            String region = reader.nextLine();
+
+            System.out.println("The Imports Partners for the third largest country in " + region + " are as" +
+                    " follows: " + q.questionSix(region));
 
         } else if (n == 7) {
             System.out.println("You chose the question: Provide a list of all countries starting with the letter" +
                     " '_', sorted by total area, smallest to largest.");
 
             System.out.println("Enter the letter you would like to search for:");
-            String startingLetter = reader.next();
+            String startingLetter = reader.nextLine();
 
-            // Go through all countries
-            // If starts with D then add it to a list
-            // go through D list and get area
-            // sort lists from smaller to largest
+            System.out.println("The list of all countries starting with the letter " + startingLetter + " sorted by total" +
+                    " area, smallest to largest, are: ");
+
+            ArrayList<String> temp = q.questionSeven(startingLetter);
+
+            for (String c : temp) {
+                System.out.println(c);
+            }
 
         } else if (n == 8) {
-            System.out.println("You chose the question: WILD CARD.");
+            System.out.println("You chose the question: What country in _____ with the color ____ in their flag has" +
+                    " the most internet users?");
 
             System.out.println("Enter the continent you would like to search for:");
-            String colorOne = reader.next();
+            String continent = reader.nextLine();
+
+            System.out.println("Enter the color you would like to search for:");
+            String color = reader.nextLine();
+
+            System.out.println("The country in " + continent + " with the color " + color + " in their flag that has" +
+                    " the most internet users is: " + q.questionEight(continent, color));
 
         } else {
             System.out.println("You did not enter a valid question number.");
