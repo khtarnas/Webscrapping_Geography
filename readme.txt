@@ -1,3 +1,7 @@
+The below is the write-up done for the class. There were specific questions given that we answered only through webscrapping and compiling the information with the code provided in this repo. 
+
+
+
 Name: Kiawehokua Tarnas
 PennKey: khtarnas
 
